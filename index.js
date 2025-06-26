@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Conexión a MySQL (ajusta puerto si es necesario)
 const db = mysql.createConnection({
-  host: "192.168.100.60",
+  host: "localhost",
   port: 3308,
   user: "root",
   password: "",
