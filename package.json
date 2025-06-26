@@ -1,0 +1,22 @@
+{
+  "name": "taller2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "date-fns": "^4.1.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mysql2": "^3.14.1",
+    "pdfkit": "^0.17.1",
+    "pdfkit-table": "^0.1.99",
+    "serialport": "^13.0.0"
+  }
+}
