@@ -41,62 +41,62 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   async function obtenerDatos() {
-    try {
-      const res = await fetch('/datos');
-      if (!res.ok) throw new Error("Error al obtener datos");
-      const datos = await res.json();
-      if (datos.length === 0) return;
+  try {
+    const res = await fetch('http://192.168.1.8:18570/datos');
+    if (!res.ok) throw new Error("Error al obtener datos");
+    const datos = await res.json();
+    if (datos.length === 0) return;
 
-      // Último dato (más reciente)
-      const dato = datos[datos.length - 1];
+    const dato = datos[datos.length - 1];
+    actualizarValores(dato);
 
-      actualizarValores(dato);
+    const timestamp = new Date(dato.fecha).toLocaleTimeString();
 
-      const timestamp = new Date(dato.fecha).toLocaleTimeString();
+    labels.push(timestamp);
+    dataTemp.push(dato.temp);
+    dataPH.push(dato.ph);
 
-      labels.push(timestamp);
-      dataTemp.push(dato.temp);
-      dataPH.push(dato.ph);
-
-      if (labels.length > MAX_POINTS) {
-        labels.shift();
-        dataTemp.shift();
-        dataPH.shift();
-      }
-
-      chart.update();
-    } catch (error) {
-      console.error('Error al obtener datos:', error);
+    if (labels.length > MAX_POINTS) {
+      labels.shift();
+      dataTemp.shift();
+      dataPH.shift();
     }
+
+    chart.update();
+  } catch (error) {
+    console.error('Error al obtener datos:', error);
   }
+}
+
 
   async function cargarTodosDatos() {
-    try {
-      const res = await fetch('/datos');
-      if (!res.ok) throw new Error("Error al cargar datos completos");
-      const datos = await res.json();
+  try {
+    const res = await fetch('http://192.168.1.8:18570/datos');
+    if (!res.ok) throw new Error("Error al cargar datos completos");
+    const datos = await res.json();
 
-      const tablaDatos = document.querySelector("#tablaDatos tbody");
-      tablaDatos.innerHTML = "";
+    const tablaDatos = document.querySelector("#tablaDatos tbody");
+    tablaDatos.innerHTML = "";
 
-      datos.forEach(dato => {
-        const fila = document.createElement("tr");
-        fila.innerHTML = `
-          <td>${new Date(dato.fecha).toLocaleString()}</td>
-          <td>${dato.temp.toFixed(2)}</td>
-          <td>${dato.ph.toFixed(2)}</td>
-          <td>${dato.tds.toFixed(2)}</td>
-          <td>${dato.ec.toFixed(2)}</td>
-          <td>${dato.resistividad.toFixed(4)}</td>
-          <td>${dato.salinidad.toFixed(2)}</td>
-          <td>${dato.pureza.toFixed(2)}</td>
-        `;
-        tablaDatos.appendChild(fila);
-      });
-    } catch (error) {
-      console.error("Error cargando datos:", error);
-    }
+    datos.forEach(dato => {
+      const fila = document.createElement("tr");
+      fila.innerHTML = `
+        <td>${new Date(dato.fecha).toLocaleString()}</td>
+        <td>${dato.temp.toFixed(2)}</td>
+        <td>${dato.ph.toFixed(2)}</td>
+        <td>${dato.tds.toFixed(2)}</td>
+        <td>${dato.ec.toFixed(2)}</td>
+        <td>${dato.resistividad.toFixed(4)}</td>
+        <td>${dato.salinidad.toFixed(2)}</td>
+        <td>${dato.pureza.toFixed(2)}</td>
+      `;
+      tablaDatos.appendChild(fila);
+    });
+  } catch (error) {
+    console.error("Error cargando datos:", error);
   }
+}
+
 
   const formReporte = document.getElementById("formReporte");
   formReporte.addEventListener("submit", async e => {
