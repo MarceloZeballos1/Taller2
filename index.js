@@ -62,7 +62,7 @@ app.post("/api/datos", (req, res) => {
 
 // Obtener los últimos 100 registros
 app.get("/datos", (req, res) => {
-  db.query("SELECT * FROM mediciones ORDER BY fecha ASC LIMIT 100", (err, results) => {
+  db.query("SELECT * FROM mediciones ORDER BY fecha DESC LIMIT 100", (err, results) => {
     if (err) {
       return res.status(500).send("Error al obtener datos");
     }

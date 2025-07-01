@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const datos = await res.json();
     if (datos.length === 0) return;
 
-    const dato = datos[datos.length - 1];
+    const dato = datos[0];
     actualizarValores(dato);
 
     const timestamp = new Date(dato.fecha).toLocaleTimeString();
@@ -163,5 +163,5 @@ document.addEventListener("DOMContentLoaded", () => {
   cargarTodosDatos();
 
   // Actualizar valores y gráfico cada 3 segundos
-  setInterval(obtenerDatos, 3000);
+  setInterval(obtenerDatos, 5000);
 });
