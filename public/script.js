@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
   async function obtenerDatos() {
   try {
     const res = await fetch('http://192.168.1.8:18570/datos');
+    //const res = await fetch('http://192.168.100.60:18570/datos');
     if (!res.ok) throw new Error("Error al obtener datos");
     const datos = await res.json();
     if (datos.length === 0) return;
@@ -72,6 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
   async function cargarTodosDatos() {
   try {
     const res = await fetch('http://192.168.1.8:18570/datos');
+    //const res = await fetch('http://192.168.100.60:18570/datos');
     if (!res.ok) throw new Error("Error al cargar datos completos");
     const datos = await res.json();
 
